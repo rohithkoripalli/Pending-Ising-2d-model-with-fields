@@ -4,6 +4,7 @@ program ising
    integer :: nequil,pass,ipass
    real (kind = double), dimension(5) :: cum
    integer :: tpass
+ do tpass = T,(1000*T)
    call initial(nequil,cum)
 !  equilibrate system
    do pass = 1,nequil
@@ -19,12 +20,12 @@ program ising
    ! read last equilibriate configuration
     read(unit=52,fmt=*,IOSTAT=KODE)
 !  accumulate data while updating spins
-   do tpass = T,(1000*T),1
+
     do ipass = 1,mcs
       call metropolis()
       call data(cum)
     end do
-   end do
+end do
    call output(cum)
 
 end program ising
